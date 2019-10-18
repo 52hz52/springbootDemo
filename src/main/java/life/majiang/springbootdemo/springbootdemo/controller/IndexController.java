@@ -1,4 +1,4 @@
-package life.majiang.springbootdemo.controller;
+package life.majiang.springbootdemo.springbootdemo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
