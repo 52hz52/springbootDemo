@@ -9,7 +9,8 @@
 [MAVEN3+ 使用 flyway 需要修复 ](https://flywaydb.org/documentation/maven/repair.html)   
 
 ## 工具
-
+[LomBok](https://projectlombok.org/setup/maven)   
+[flyway](https://flywaydb.org/getstarted/firststeps/maven)   
 
 ## 脚本
 ```sql
@@ -24,4 +25,21 @@ create table user
 	constraint user_pk
 		primary key (id)
 );
+
+CREATE  TABLE QUESTION(
+    ID INT auto_increment primary  key ,
+    TITLE VARCHAR(50),
+    desciption TEXT,
+    GMT_CREATE BIGINT,
+    GMT_MODIFIED BIGINT,
+    CREATOR INT,
+    COMMENT_COUNT INT DEFAULT 0,
+    VIEW_COUNT INT DEFAULT 0,
+    LIKE_COUNT INT DEFAULT 0,
+    TAG VARCHAR(256)
+)
+
+
+
+
 ```

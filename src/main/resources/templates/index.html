@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head >
-    <title>Spring Boot</title>
+    <title>HZ社区</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
@@ -34,6 +34,17 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <!--如果用户不为空 显示这个li-->
+                <li class="dropdown" th:if="${session.user != null}" >
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
+                        发布问题
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">简单发布</a></li>
+                        <li><a href="/publish">高级问题</a></li>
+                    </ul>
+                </li>
+
+                <!--如果用户不为空 显示这个li-->
                 <li class="dropdown" th:if="${session.user != null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.name}">
                         <span class="caret"></span>
@@ -54,8 +65,46 @@
     </div>
 </nav>
 
+<div class="container main ">
+    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
+        <h2 class="h2" ><span class="glyphicon glyphicon-list" ></span> 发现</h2>
+        <hr/>
+
+        <div class="media" th:each="question : ${questions} ">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object img-rounded" width="45px" height="45px" th:src="${question.user.avatarUrl}" alt="...">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading" th:text="${question.title}"></h4>
+                <span th:text="${question.desciption}"></span><br/>
+                <span class="desc-test">
+                    <span th:text="${question.commentCount}"></span>个回复 • <span th:text="${question.viewCount}"></span>次浏览 • <span th:text="${#dates.format(question.gmtCreate,'yy-MM-dd ')}"></span> 发布
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 右边 -->
+    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+
+        <h2 class="h2">热门话题</h2>
+        <hr/>
+        <p> • 问题标题: 请用精简的语言描述您发布的问题，不超过25字</p>
+
+        <p>• 问题补充: 详细补充您的问题内容，并确保问题描述清晰直观, 并提供一些相关的资料：</p>
+
+        <p>• 选择标签: 选择一个或者多个合适的标签，不超过10个字</p>
+
+        <p>• 关于积分： 发起一个问题会消耗您 20 个积分, 每多一个回复你将获得 5 个积分的奖励 ,为了您的利益, 在发起问题的时候希望能够更好的描述您的问题以及多使用站内搜索功能.
+        </p>
 
 
+    </div>
+</div>
+<div class="footInfo"><p>Copyright © 2019 · CC BY-NC-SA 1.0 · HZ~中文社区</p></div>
 
 
 <script src="js/jquery.min.js"></script>

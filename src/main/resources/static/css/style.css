@@ -1,0 +1,42 @@
+body{
+    background: url("../img/bg.png") 100% 100%;
+}
+.footInfo{
+    margin: 30px 0px 10px 0px;
+    text-align: center;
+    font-size: 12px;
+    color: #4f4f4f;
+}
+.h2, h2 {
+    font-size: 20px;!important;
+}
+.h2 span{
+    font-size: 20px;
+}
+hr{
+    border-color: #e3e3e3;
+}
+/*  publish.html  */
+.tip{
+    background-color: #fafcde;
+    padding: 20px 10px;
+    margin:0px 20px;
+}
+.tip p{ padding-left: 5px}
+.main{
+    background-color: white;
+}
+
+.TipError{
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/*  index.html  */
+.desc-test{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
