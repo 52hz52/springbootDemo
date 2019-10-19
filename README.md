@@ -8,3 +8,16 @@
 [H2数据库](http://www.h2database.com/)      
 
 ## 工具
+
+
+## 脚本
+```sql
+CREATE TABLE USER(
+    ID INT  AUTO_INCREMENT PROCEDURE KEY NOT NULL,
+    NAME VARCHAR(50),
+    ACCOUNT_ID VARCHAR(255),
+    TOKEN VARCHAR(36),
+    GMT_CREATE BIGINT,
+    GMT_MODIFIED BIGINT
+)
+```
