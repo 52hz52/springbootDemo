@@ -1,5 +1,6 @@
 package life.majiang.springbootdemo.springbootdemo.controller;
 
+import life.majiang.springbootdemo.springbootdemo.dto.PaginationDTO;
 import life.majiang.springbootdemo.springbootdemo.mapper.UserMapper;
 import life.majiang.springbootdemo.springbootdemo.model.User;
 import life.majiang.springbootdemo.springbootdemo.service.QuestionService;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +25,11 @@ public class ProfileController {
 
 
     @GetMapping("/profile/{action}")
-    public String profile(@PathVariable(name = "action")String action, HttpServletRequest request, Model model){
+    public String profile(@PathVariable(name = "action")String action,
+                          HttpServletRequest request, Model model,
+                          @RequestParam(name = "page" ,defaultValue = "1") Integer page){
+
+        Integer size = 5;
 
         User user = null;
         Cookie[] cookies = request.getCookies();
@@ -31,7 +37,7 @@ public class ProfileController {
             for (Cookie cookie:cookies){
                 if(cookie.getName().equals("token")){
                     String token = cookie.getValue();
-                    user = userMapper.fingByToken(token);
+                    user = userMapper.findByToken(token);
                     if(null != user){
                         request.getSession().setAttribute("user",user);
                     }
@@ -40,9 +46,8 @@ public class ProfileController {
             }
         }
         if(user == null){
-            return "indns";
+            return "redirect/";
         }
-
         if("questions".equals(action)){
             model.addAttribute("section","questions");
             model.addAttribute("sectionName","我的提问");
@@ -52,6 +57,8 @@ public class ProfileController {
             model.addAttribute("sectionName","最新回复");
         }
 
+        PaginationDTO paginationDTO = questionService.listUserByID(user.getId(), page, size);
+        model.addAttribute("pagination",paginationDTO);
         return "profile";
     }
 

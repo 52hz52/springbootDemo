@@ -62,4 +62,44 @@ public class QuestionService {
     }
 
 
+    public PaginationDTO listUserByID(Integer userID, Integer page, Integer size) {
+
+        PaginationDTO paginationDTO = new PaginationDTO();
+
+        Integer totalCount = questionMapper.countByUserId(userID);
+        paginationDTO.setPagination(totalCount,page,size);
+
+        if(page<1){
+            page = 1;
+        }
+        if(page > paginationDTO.getTotalPage() ){
+            page = paginationDTO.getTotalPage();
+        }
+
+        Integer offset = size*(page-1);
+
+//      发布的问题集合  分页  limit
+        List<Question> questions = questionMapper.listByUserId(userID,offset,size);
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+
+        for (Question question : questions) {
+            User user = userMapper.findByID(question.getCreator());
+
+            QuestionDTO questionDto = new QuestionDTO();
+//       把对象question的属性快速拷贝到questionDto
+//       questionDto.setId(question.getId());
+            BeanUtils.copyProperties(question,questionDto);
+            System.out.println(user);
+            questionDto.setUser(user);
+//       添加到集合
+            questionDTOList.add(questionDto);
+        }
+//      所有问题 用于分页
+        paginationDTO.setQuestions(questionDTOList);
+
+
+        return paginationDTO;
+
+
+    }
 }

@@ -33,7 +33,7 @@ public class IndexController {
             for (Cookie cookie:cookies){
                 if(cookie.getName().equals("token")){
                     String token = cookie.getValue();
-                    User user = userMapper.fingByToken(token);
+                    User user = userMapper.findByToken(token);
                     if(null != user){
                         request.getSession().setAttribute("user",user);
                     }

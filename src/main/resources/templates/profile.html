@@ -14,7 +14,55 @@
         <h2 class="h2"><span th:text="${sectionName}"></span> </h2>
         <hr/>
 
+        <div class="media" th:each="question : ${pagination.questions} " th:if="${pagination.questions.size()>0}">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object img-rounded" width="45px" height="45px" th:src="${question.user.avatarUrl}" alt="...">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading" th:text="${question.title}"></h4>
+                <span class="desc-test">
+                    <span th:text="${question.commentCount}"></span>个回复 • <span th:text="${question.viewCount}"></span>次浏览 • <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm ')}"></span> 发布
+                </span>
+            </div>
+        </div>
 
+        <div th:if="${pagination.page==pagination.getTotalPage()}" class="lastPageQuestion">这是最后一页的问题了...</div>
+
+        <nav aria-label="Page navigation" class="pull-right">
+            <ul class="pagination">
+                <li th:if="${pagination.showFirstPage}">
+                    <a href="/profile/questions?page=1" aria-label="Previous">
+                        <span aria-hidden="true" >&lt;&lt;</span>
+                    </a>
+                </li>
+                <li th:if="${pagination.showNext}">
+                    <a href="#" aria-label="Previous" th:href="@{/profile/questions/(page=${pagination.page - 1})}">
+                        <span aria-hidden="true">&lt;</span>
+                    </a>
+                </li>
+
+                <li th:each="page : ${pagination.pages} " th:class="${pagination.page == page}? 'active':'' ">
+                    <a th:href="@{/profile/questions/(page=${page})}" th:text="${page}" ></a>
+
+                </li>
+
+
+                <li th:if="${pagination.showPrevious}">
+                    <a href="#" aria-label="Next" th:href="@{/profile/questions/(page=${pagination.page + 1})}">
+                        <span aria-hidden="true">&gt;</span>
+                    </a>
+                </li>
+
+                <li th:if="${pagination.showEndPage}">
+                    <a aria-label="Next" th:href="@{/profile/questions/(page=${pagination.getTotalPage()})}">
+                        <span aria-hidden="true">&gt;&gt;</span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
 
 
     </div>
