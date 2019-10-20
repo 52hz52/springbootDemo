@@ -45,3 +45,11 @@ hr{
     font-size: 14px;
     margin: 20px;
 }
+
+/*profile.html*/
+.list-group .active{
+    background-color: #4694e6;
+}
+.list-group .active:hover{
+    background-color: #408ad6;
+}

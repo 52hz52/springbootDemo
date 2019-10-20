@@ -22,9 +22,7 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
-
     public PaginationDTO list(Integer page, Integer size) {
-
 
         PaginationDTO paginationDTO = new PaginationDTO();
 
@@ -44,14 +42,14 @@ public class QuestionService {
         List<Question> questions = questionMapper.list(offset,size);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
-
-
         for (Question question : questions) {
          User user = userMapper.findByID(question.getCreator());
+
          QuestionDTO questionDto = new QuestionDTO();
 //       把对象question的属性快速拷贝到questionDto
 //       questionDto.setId(question.getId());
          BeanUtils.copyProperties(question,questionDto);
+         System.out.println(user);
          questionDto.setUser(user);
 //       添加到集合
          questionDTOList.add(questionDto);
@@ -60,8 +58,8 @@ public class QuestionService {
         paginationDTO.setQuestions(questionDTOList);
 
 
-
-
         return paginationDTO;
     }
+
+
 }
