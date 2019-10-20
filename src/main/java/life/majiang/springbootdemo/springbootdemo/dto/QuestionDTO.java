@@ -4,7 +4,7 @@ import life.majiang.springbootdemo.springbootdemo.model.User;
 import lombok.Data;
 
 @Data
-public class QuestionDto {
+public class QuestionDTO {
     private int id;
     private String title;
     private String desciption;

@@ -40,3 +40,8 @@ hr{
     font-weight: normal;
     color: #999;
 }
+.lastPageQuestion{
+    text-align: left;
+    font-size: 14px;
+    margin: 20px;
+}
