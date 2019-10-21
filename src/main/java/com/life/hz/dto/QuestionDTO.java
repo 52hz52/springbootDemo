@@ -1,6 +1,6 @@
-package life.majiang.springbootdemo.springbootdemo.dto;
+package com.life.hz.dto;
 
-import life.majiang.springbootdemo.springbootdemo.model.User;
+import com.life.hz.model.User;
 import lombok.Data;
 
 @Data

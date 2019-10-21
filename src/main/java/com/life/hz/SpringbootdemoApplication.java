@@ -1,4 +1,4 @@
-package life.majiang.springbootdemo.springbootdemo;
+package com.life.hz;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

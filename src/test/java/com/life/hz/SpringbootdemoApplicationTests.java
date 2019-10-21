@@ -1,4 +1,4 @@
-package life.majiang.springbootdemo.springbootdemo;
+package com.life.hz;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

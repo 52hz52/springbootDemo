@@ -1,8 +1,8 @@
-package life.majiang.springbootdemo.springbootdemo.provider;
+package com.life.hz.provider;
 
 import com.alibaba.fastjson.JSON;
-import life.majiang.springbootdemo.springbootdemo.dto.AccessTokenDTO;
-import life.majiang.springbootdemo.springbootdemo.dto.GithubUser;
+import com.life.hz.dto.AccessTokenDTO;
+import com.life.hz.dto.GithubUser;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 

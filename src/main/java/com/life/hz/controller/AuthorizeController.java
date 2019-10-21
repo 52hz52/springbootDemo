@@ -1,10 +1,9 @@
-package life.majiang.springbootdemo.springbootdemo.controller;
+package com.life.hz.controller;
 
-import life.majiang.springbootdemo.springbootdemo.dto.AccessTokenDTO;
-import life.majiang.springbootdemo.springbootdemo.dto.GithubUser;
-import life.majiang.springbootdemo.springbootdemo.mapper.UserMapper;
-import life.majiang.springbootdemo.springbootdemo.model.User;
-import life.majiang.springbootdemo.springbootdemo.provider.GitHubProvider;
+import com.life.hz.dto.AccessTokenDTO;
+import com.life.hz.dto.GithubUser;
+import com.life.hz.mapper.UserMapper;
+import com.life.hz.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,7 @@ public class AuthorizeController {
 
 //    自动导入
     @Autowired
-    private GitHubProvider GitHubProvider;
+    private com.life.hz.provider.GitHubProvider GitHubProvider;
 
     @Autowired
     private UserMapper userMapper;
@@ -60,7 +59,10 @@ public class AuthorizeController {
             user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(githubUser.getAvatarUrl());
             userMapper.insert(user);
-            response.addCookie(new Cookie("token",token));
+
+            Cookie tokenCookies = new Cookie("token", token);
+            response.addCookie(tokenCookies);
+            System.out.println("tokenCookies  === "+tokenCookies);
 
             //从定向到 index
             return "redirect:/";

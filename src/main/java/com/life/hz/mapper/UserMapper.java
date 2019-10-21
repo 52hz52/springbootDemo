@@ -1,6 +1,6 @@
-package life.majiang.springbootdemo.springbootdemo.mapper;
+package com.life.hz.mapper;
 
-import life.majiang.springbootdemo.springbootdemo.model.User;
+import com.life.hz.model.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

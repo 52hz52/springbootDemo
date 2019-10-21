@@ -1,4 +1,4 @@
-package life.majiang.springbootdemo.springbootdemo.model;
+package com.life.hz.model;
 
 import lombok.Data;
 

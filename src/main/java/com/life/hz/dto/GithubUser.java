@@ -1,4 +1,4 @@
-package life.majiang.springbootdemo.springbootdemo.dto;
+package com.life.hz.dto;
 
 import lombok.Data;
 /* 自动会生成 set get  toString 方法 */

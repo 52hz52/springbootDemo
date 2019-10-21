@@ -1,11 +1,11 @@
-package life.majiang.springbootdemo.springbootdemo.service;
+package com.life.hz.service;
 
-import life.majiang.springbootdemo.springbootdemo.dto.PaginationDTO;
-import life.majiang.springbootdemo.springbootdemo.dto.QuestionDTO;
-import life.majiang.springbootdemo.springbootdemo.mapper.QuestionMapper;
-import life.majiang.springbootdemo.springbootdemo.mapper.UserMapper;
-import life.majiang.springbootdemo.springbootdemo.model.Question;
-import life.majiang.springbootdemo.springbootdemo.model.User;
+import com.life.hz.dto.PaginationDTO;
+import com.life.hz.dto.QuestionDTO;
+import com.life.hz.mapper.QuestionMapper;
+import com.life.hz.mapper.UserMapper;
+import com.life.hz.model.Question;
+import com.life.hz.model.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
