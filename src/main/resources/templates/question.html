@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${question.title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div th:insert="navgation :: nav"></div>
+<div class="container main ">
+    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
+        <br/>
+        <h4 class="h4"><span th:text="${question.title}"></span> </h4>
+        <span class="desc-test">
+            作者:<span th:text="${question.user.name}"></span>&nbsp;&nbsp;|&nbsp;
+            阅读:<span th:text="${question.viewCount}"></span>&nbsp;&nbsp;|&nbsp;
+            时间:<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd')}"></span>
+        </span>
+        <hr/>
+        <div th:text="${question.desciption}" class="questionDesc"></div>
+        <hr>
+        <a th:href="@{'/publish/'+${question.id}}" class="EditICONColor">
+            <span class="glyphicon glyphicon-edit" style="font-size: 13px"> </span> 编辑
+        </a>
+
+    </div>
+
+    <!-- 右边 -->
+    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+        <br/>
+        <h4 class="h4" style="margin-top: 34px">发起人</h4>
+        <hr/>
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object img-rounded" width="45px" height="45px" th:src="${question.user.avatarUrl}" alt="...">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">
+                    <span th:text="${question.user.name}" ></span>
+                </h4>
+                <span th:text="${question.user.bio}" th:if="${question.user.bio} != null "></span>
+                <span th:if="${question.user.bio} == null ">暂无介绍..</span>
+            </div>
+        </div>
+        <hr/>
+
+
+
+
+    </div>
+</div>
+<div class="footInfo"><p>Copyright © 2019 · CC BY-NC-SA 1.0 · HZ~中文社区</p></div>
+
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+</body>
+</html>

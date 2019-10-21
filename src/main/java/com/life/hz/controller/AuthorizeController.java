@@ -31,7 +31,7 @@ public class AuthorizeController {
     @Value("${github.client.secret}")
     private String clientSecret;
 
-    @Value("${github.redirect.uri}")
+    @Value("http://localhost:9090/callback")
     private String redirectUri;
 
 
@@ -58,6 +58,8 @@ public class AuthorizeController {
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(githubUser.getAvatarUrl());
+            user.setBio(githubUser.getBio());
+            System.out.println("====================== bio : "+githubUser.getBio());
             userMapper.insert(user);
 
             Cookie tokenCookies = new Cookie("token", token);

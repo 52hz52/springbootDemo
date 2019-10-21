@@ -1,6 +1,12 @@
 body{
     background: url("../img/bg.png") 100% 100%;
 }
+a:hover{
+    text-decoration: none;
+}
+hr{
+    margin: 5px 0px;
+}
 .footInfo{
     margin: 30px 0px 10px 0px;
     text-align: center;
@@ -11,7 +17,7 @@ body{
     font-size: 20px;!important;
 }
 .h2 span{
-    font-size: 20px;
+    font-size: 15px;
 }
 hr{
     border-color: #e3e3e3;
@@ -53,3 +59,18 @@ hr{
 .list-group .active:hover{
     background-color: #408ad6;
 }
+
+
+/*question.html   */
+.EditICONColor{
+    color: #999;
+}
+.EditICONColor:hover{
+    color: #222222;
+
+}
+.questionDesc{
+    margin:25px 0 25px 0;
+}
+
+
