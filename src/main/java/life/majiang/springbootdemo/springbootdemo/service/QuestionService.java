@@ -26,15 +26,23 @@ public class QuestionService {
 
         PaginationDTO paginationDTO = new PaginationDTO();
 
+        Integer totalPage;
         Integer totalCount = questionMapper.count();
-        paginationDTO.setPagination(totalCount,page,size);
+
+        if( totalCount%size == 0 ){
+            totalPage = totalCount/size;
+        }else {
+            totalPage = totalCount/size + 1 ;
+        }
 
         if(page<1){
             page = 1;
         }
-        if(page > paginationDTO.getTotalPage() ){
-            page = paginationDTO.getTotalPage();
+        if(page > totalPage ){
+            page = totalPage;
         }
+
+        paginationDTO.setPagination(totalPage,page);
 
         Integer offset = size*(page-1);
 
@@ -66,15 +74,23 @@ public class QuestionService {
 
         PaginationDTO paginationDTO = new PaginationDTO();
 
+        Integer totalPage;
         Integer totalCount = questionMapper.countByUserId(userID);
-        paginationDTO.setPagination(totalCount,page,size);
+
+        if( totalCount%size == 0 ){
+            totalPage = totalCount/size;
+        }else {
+            totalPage = totalCount/size + 1 ;
+        }
 
         if(page<1){
             page = 1;
         }
-        if(page > paginationDTO.getTotalPage() ){
-            page = paginationDTO.getTotalPage();
+        if(page > totalPage ){
+            page = totalPage;
         }
+
+        paginationDTO.setPagination(totalPage,page);
 
         Integer offset = size*(page-1);
 

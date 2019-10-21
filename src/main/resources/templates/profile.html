@@ -33,30 +33,30 @@
         <nav aria-label="Page navigation" class="pull-right">
             <ul class="pagination">
                 <li th:if="${pagination.showFirstPage}">
-                    <a href="/profile/questions?page=1" aria-label="Previous">
+                    <a th:href=" @{ '/profile/'+${section}(page=${1}) } " aria-label="Previous">
                         <span aria-hidden="true" >&lt;&lt;</span>
                     </a>
                 </li>
-                <li th:if="${pagination.showNext}">
-                    <a href="#" aria-label="Previous" th:href="@{/profile/questions/(page=${pagination.page - 1})}">
+                <li th:if="${pagination.showPrevious}">
+                    <a href="#" aria-label="Previous" th:href="@{'/profile/'+${section}(page=${pagination.page - 1}) }">
                         <span aria-hidden="true">&lt;</span>
                     </a>
                 </li>
 
                 <li th:each="page : ${pagination.pages} " th:class="${pagination.page == page}? 'active':'' ">
-                    <a th:href="@{/profile/questions/(page=${page})}" th:text="${page}" ></a>
+                    <a th:href="@{'/profile/'+${section}(page=${page})}" th:text="${page}" ></a>
 
                 </li>
 
 
-                <li th:if="${pagination.showPrevious}">
-                    <a href="#" aria-label="Next" th:href="@{/profile/questions/(page=${pagination.page + 1})}">
+                <li th:if="${pagination.showNext}">
+                    <a href="#" aria-label="Next" th:href="@{'/profile/'+${section}(page=${pagination.page + 1}) }">
                         <span aria-hidden="true">&gt;</span>
                     </a>
                 </li>
 
                 <li th:if="${pagination.showEndPage}">
-                    <a aria-label="Next" th:href="@{/profile/questions/(page=${pagination.getTotalPage()})}">
+                    <a aria-label="Next" th:href="@{'/profile/'+${section}(page=${pagination.getTotalPage()})}">
                         <span aria-hidden="true">&gt;&gt;</span>
                     </a>
                 </li>

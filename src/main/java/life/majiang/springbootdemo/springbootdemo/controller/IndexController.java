@@ -41,7 +41,7 @@ public class IndexController {
                 }
             }
 
-        Integer size = 5 ;
+        Integer size = 2 ;
         PaginationDTO pagination = questionService.list(page,size);
         model.addAttribute("pagination",pagination);
         if(pagination.getQuestions().size() > 0 ){

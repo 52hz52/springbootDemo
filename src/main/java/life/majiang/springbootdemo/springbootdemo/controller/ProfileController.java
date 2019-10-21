@@ -29,7 +29,7 @@ public class ProfileController {
                           HttpServletRequest request, Model model,
                           @RequestParam(name = "page" ,defaultValue = "1") Integer page){
 
-        Integer size = 5;
+        Integer size = 2;
 
         User user = null;
         Cookie[] cookies = request.getCookies();
