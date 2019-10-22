@@ -21,7 +21,7 @@
         <hr/>
         <div th:text="${question.desciption}" class="questionDesc"></div>
         <hr>
-        <a th:href="@{'/publish/'+${question.id}}" class="EditICONColor">
+        <a th:href="@{'/publish/'+${question.id}}" class="EditICONColor" th:if="${session.user != null && session.user.id==question.creator }">
             <span class="glyphicon glyphicon-edit" style="font-size: 13px"> </span> 编辑
         </a>
 
@@ -39,11 +39,11 @@
                 </a>
             </div>
             <div class="media-body">
-                <h4 class="media-heading">
+                <h5 class="h5 media-heading">
                     <span th:text="${question.user.name}" ></span>
-                </h4>
-                <span th:text="${question.user.bio}" th:if="${question.user.bio} != null "></span>
-                <span th:if="${question.user.bio} == null ">暂无介绍..</span>
+                </h5>
+                <span class="bio" th:text="${question.user.bio}" th:if="${question.user.bio} != null "></span>
+                <span class="bio" th:if="${question.user.bio} == null ">暂无介绍..</span>
             </div>
         </div>
         <hr/>

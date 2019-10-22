@@ -30,7 +30,7 @@
 
         <div th:if="${pagination.page==pagination.getTotalPage()}" class="lastPageQuestion">这是最后一页的问题了...</div>
 
-        <nav aria-label="Page navigation" class="pull-right">
+        <nav aria-label="Page navigation" class="pull-right" th:if="${pagination.questions.size() >= 1 }">
             <ul class="pagination">
                 <li th:if="${pagination.showFirstPage}">
                     <a th:href=" @{ '/profile/'+${section}(page=${1}) } " aria-label="Previous">
