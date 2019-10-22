@@ -25,6 +25,7 @@ public class UserService {
            dbuser.setBio(user.getBio());
            dbuser.setAvatarUrl(user.getAvatarUrl());
            dbuser.setName(user.getName());
+           dbuser.setBio(user.getBio());
            userMapper.update(dbuser);
 
        }

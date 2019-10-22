@@ -2,7 +2,6 @@ package com.life.hz.controller;
 
 import com.life.hz.dto.AccessTokenDTO;
 import com.life.hz.dto.GithubUser;
-import com.life.hz.mapper.UserMapper;
 import com.life.hz.model.User;
 import com.life.hz.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,31 +58,26 @@ public class AuthorizeController {
             user.setAvatarUrl(githubUser.getAvatarUrl());
             user.setBio(githubUser.getBio());
             System.out.println("====================== bio : "+githubUser.getBio());
-
             userService.createOrUpdate(user);
-
             Cookie tokenCookies = new Cookie("token", token);
             response.addCookie(tokenCookies);
             System.out.println("tokenCookies  === "+tokenCookies);
-
             //从定向到 index
             return "redirect:/";
         }else {
             //登录失败  重新登录
             return "redirect:/";
         }
-
     }
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request,HttpServletResponse response){
-
+//      清除 session 和  cokkie
         request.getSession().removeAttribute("user");
         Cookie cookie = new Cookie("token",null);
         cookie.setMaxAge(0);
         response.addCookie(cookie);
         return "redirect:/";
-
     }
 
 }

@@ -3,8 +3,8 @@
 <head >
     <title>发布问题</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
@@ -61,6 +61,7 @@
         </div>
         <hr/>
         <form action="/publish" method="post">
+            <input type="hidden" name="id" th:value="${id}" th:if="${id != null}">
             <div class="form-group">
                 <label >问题标题（简单扼要）:</label>
                 <input type="text" class="form-control" th:value="${title}" name="title" placeholder="问题标题...">
@@ -112,8 +113,8 @@
 <div class="footInfo"><p>Copyright © 2019 · CC BY-NC-SA 1.0 · HZ~中文社区</p></div>
 
 
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 
 </body>
 </html>

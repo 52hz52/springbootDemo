@@ -14,7 +14,7 @@
         <h2 class="h2" ><span class="glyphicon glyphicon-list" ></span> 发现</h2>
         <hr/>
 
-        <div class="media" th:each="question : ${pagination.questions} " th:if="${pagination.questions.size()>0}">
+        <div class="media" th:each="question : ${pagination.questions} " >
             <div class="media-left">
                 <a href="#">
                     <img class="media-object img-rounded" width="45px" height="45px" th:src="${question.user.avatarUrl}" alt="...">
@@ -26,14 +26,19 @@
                 </h4>
                 <span th:text="${question.desciption}"></span><br/>
                 <span class="desc-test">
-                    <span th:text="${question.commentCount}"></span>个回复 • <span th:text="${question.viewCount}"></span>次浏览 • <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm ')}"></span> 发布
+                    <span th:text="${question.commentCount}"></span>个回复 •
+                    <span th:text="${question.viewCount}"></span>次浏览 •
+                    <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm ')}"></span> 发布
+                    <span th:text="${#dates.format(question.gmtModified,'MM-dd HH:mm ')}" th:if="${question.gmtCreate != question.gmtModified}">
+                        <span> • 更新</span>
+                    </span>
                 </span>
             </div>
         </div>
 
-        <div th:if="${pagination.page==pagination.getTotalPage()}" class="lastPageQuestion">这是最后一页的问题了...</div>
+        <!--<div th:if="${pagination.page==pagination.getTotalPage()}" class="lastPageQuestion">这是最后一页的问题了...</div>-->
 
-        <nav aria-label="Page navigation" class="pull-right">
+        <nav aria-label="Page navigation" class="pull-right" th:if="${pagination.questions.size()>=5}">
             <ul class="pagination">
                 <li th:if="${pagination.showFirstPage}">
                     <a href="/?page=1" aria-label="Previous">
