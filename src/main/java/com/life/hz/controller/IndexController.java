@@ -18,7 +18,7 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model,
                         @RequestParam(name = "page" ,defaultValue = "1")Integer page) {
-        Integer size = 5 ;
+        Integer size = 1 ;
         PaginationDTO pagination = questionService.list(page,size);
         model.addAttribute("pagination",pagination);
         if(pagination.getQuestions().size() > 0 ){
