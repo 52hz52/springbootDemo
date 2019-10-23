@@ -4,6 +4,7 @@ import com.life.hz.dto.PaginationDTO;
 import com.life.hz.dto.QuestionDTO;
 import com.life.hz.exception.CustomizeException;
 import com.life.hz.exception.CustomizeExceptionCode;
+import com.life.hz.mapper.QuestionExtMapper;
 import com.life.hz.mapper.QuestionMapper;
 import com.life.hz.mapper.UserMapper;
 import com.life.hz.model.Question;
@@ -22,6 +23,9 @@ public class QuestionService {
 
     @Autowired
     private QuestionMapper questionMapper;
+
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -46,13 +50,12 @@ public class QuestionService {
             page = totalPage;
         }
 
-        paginationDTO.setPagination(totalPage,page);
+        paginationDTO.setPagination(totalPage,page,totalCount);
 
         Integer offset = size*(page-1);
 
 //      发布的问题集合  分页  limit
-        List<Question> questions = questionMapper.
-                selectByExampleWithRowbounds(new QuestionExample(), new RowBounds(offset, size));
+        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(new QuestionExample(), new RowBounds(offset, size));
 
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
@@ -99,7 +102,7 @@ public class QuestionService {
             page = totalPage;
         }
 
-        paginationDTO.setPagination(totalPage,page);
+        paginationDTO.setPagination(totalPage,page,totalCount);
 
         Integer offset = size*(page-1);
 
@@ -157,15 +160,16 @@ public class QuestionService {
             //更新
       //      question.setGmtModified(System.currentTimeMillis());
             Question updateQuestion = new Question();
+
             updateQuestion.setGmtModified(System.currentTimeMillis());
             updateQuestion.setTag(question.getTag());
             updateQuestion.setTitle(question.getTitle());
-            updateQuestion.setDesciption(question.getDesciption());
-
             QuestionExample example = new QuestionExample();
+            updateQuestion.setDesciption(question.getDesciption());
             example.createCriteria().andIdEqualTo(question.getId());
 
             int updateRow = questionMapper.updateByExampleSelective(updateQuestion, example);
+
 //          没有更新成功
             if(updateRow != 1){
                 throw new CustomizeException(CustomizeExceptionCode.QUESTION_NOT_FOUND);
@@ -173,4 +177,13 @@ public class QuestionService {
 
         }
     }
+
+    public void incView(Integer id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        questionExtMapper.incView(question);
+    }
+
+
 }

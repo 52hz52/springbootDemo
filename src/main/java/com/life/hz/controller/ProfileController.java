@@ -24,7 +24,7 @@ public class ProfileController {
                           HttpServletRequest request, Model model,
                           @RequestParam(name = "page" ,defaultValue = "1") Integer page){
 //      每页显示数量
-        Integer size = 1 ;
+        Integer size = 5 ;
         User user = (User) request.getSession().getAttribute("user");
 
         if(user == null){

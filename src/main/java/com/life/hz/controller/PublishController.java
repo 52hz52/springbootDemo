@@ -75,12 +75,15 @@ public class PublishController {
         question.setTag(tag);
         question.setDesciption(desciption);
         question.setCreator(user.getId());
-        if(id!=null){
-            question.setId(id);
-        }
+        question.setViewCount(0);
+        question.setCommentCount(0);
+        question.setLikeCount(0);
+        question.setId(id);
+
+
 //       添加一个问题
         questionService.createOrUpdate(question);
-//        questionMapper.create(question);
+
         return "redirect:/";
 
     }

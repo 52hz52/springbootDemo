@@ -14,11 +14,12 @@ public class PaginationDTO {
     private boolean showEndPage;
     private Integer page; //当前页面
     private  Integer totalPage ;
+    private  Integer totalCount ;
 
     private List<Integer> pages = new ArrayList<>();
 
-    public void setPagination(Integer totalPage, Integer page) {
-
+    public void setPagination(Integer totalPage, Integer page,Integer totalCount) {
+        this.totalCount = totalCount;
         this.totalPage = totalPage;
         this.page = page;
 
@@ -32,9 +33,6 @@ public class PaginationDTO {
                 pages.add(page + i );
             }
         }
-
-
-
 
 
 //      是否展示上一页

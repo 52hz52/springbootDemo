@@ -29,8 +29,10 @@
                     <span th:text="${question.commentCount}"></span>个回复 •
                     <span th:text="${question.viewCount}"></span>次浏览 •
                     <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm ')}"></span> 发布
-                    <span th:text="${#dates.format(question.gmtModified,'MM-dd HH:mm ')}" th:if="${question.gmtCreate != question.gmtModified}">
-                        <span> • 更新</span>
+                    <span th:if="${question.gmtCreate != question.gmtModified}">
+                        <span> • </span>
+                        <span th:text="${#dates.format(question.gmtModified,'MM-dd HH:mm ')}" ></span>
+                        <span>更新</span>
                     </span>
                 </span>
             </div>
@@ -38,7 +40,8 @@
 
         <!--<div th:if="${pagination.page==pagination.getTotalPage()}" class="lastPageQuestion">这是最后一页的问题了...</div>-->
 
-        <nav aria-label="Page navigation" class="pull-right" th:if="${pagination.questions.size()>=0}">
+        <!--分页-->
+        <nav aria-label="Page navigation" class="pull-right" th:if="${pagination.getTotalCount()>=5}">
             <ul class="pagination">
                 <li th:if="${pagination.showFirstPage}">
                     <a href="/?page=1" aria-label="Previous">
@@ -71,7 +74,6 @@
 
             </ul>
         </nav>
-
 
     </div>
 
