@@ -43,6 +43,6 @@ CREATE  TABLE QUESTION(
 ## 
 ```bash
 mvn flyway:repair 
-1mvn flyway:migrate
+mvn flyway:migrate
 mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 ```

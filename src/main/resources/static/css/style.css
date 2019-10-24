@@ -82,6 +82,16 @@ hr{
     font-size: 12px;
     color: #5e5e5e;
 }
+.QuestionComment{
+    margin-top: 30px;
+}
+.textComment{
+    margin: 10px 0px;
+}
+.questionSubmitBtn{
+    margin: 5px 0 20px 0;
+}
+
 
 /* footer.html  */
 .footInfo{

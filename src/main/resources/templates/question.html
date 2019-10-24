@@ -12,18 +12,31 @@
 <div class="container main ">
     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
         <br/>
-        <h4 class="h4"><span th:text="${question.title}"></span> </h4>
-        <span class="desc-test">
+        <div class="row">
+            <h4 class="h4"><span th:text="${question.title}"></span> </h4>
+            <span class="desc-test">
             作者:<span th:text="${question.user.name}"></span>&nbsp;&nbsp;|&nbsp;
             阅读:<span th:text="${question.viewCount}"></span>&nbsp;&nbsp;|&nbsp;
             时间:<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd')}"></span>
         </span>
-        <hr/>
-        <div th:text="${question.desciption}" class="questionDesc"></div>
-        <hr>
-        <a th:href="@{'/publish/'+${question.id}}" class="EditICONColor" th:if="${session.user != null && session.user.id==question.creator }">
-            <span class="glyphicon glyphicon-edit" style="font-size: 13px"> </span> 编辑
-        </a>
+            <hr/>
+            <div th:text="${question.desciption}" class="questionDesc"></div>
+            <hr>
+            <a th:href="@{'/publish/'+${question.id}}" class="EditICONColor" th:if="${session.user != null && session.user.id==question.creator }">
+                <span class="glyphicon glyphicon-edit" style="font-size: 13px"> </span> 编辑
+            </a>
+        </div>
+
+        <div class="row QuestionComment">
+            <span>
+                <img style="display: inline-block" class="media-object img-rounded" width="45px" height="45px" th:src="${question.user.avatarUrl}" alt="...">
+                &nbsp;&nbsp;<span th:text="${question.user.name}" ></span>
+            </span>
+            <input type="hidden" id="question_id" th:value="${question.id}">
+            <textarea class="form-control textComment" rows="10" id="comment_content" placeholder="请输入内容..."></textarea>
+            <button type="button" class="btn btn-success pull-right questionSubmitBtn " id="QuestionSubmitBtn">回复</button>
+
+        </div>
 
     </div>
 
@@ -32,7 +45,7 @@
         <br/>
         <h4 class="h4" style="margin-top: 34px">发起人</h4>
         <hr/>
-        <div class="media">
+        <div class="media" style=" margin-bottom: 11px;">
             <div class="media-left">
                 <a href="#">
                     <img class="media-object img-rounded" width="45px" height="45px" th:src="${question.user.avatarUrl}" alt="...">
@@ -58,6 +71,7 @@
 
 
 <script src="/js/jquery.min.js"></script>
+<script src="/js/All.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 
 </body>
