@@ -8,7 +8,8 @@ public enum CustomizeExceptionCode implements ICustomizeExceptionCode {
     NO_LOGIN(2003,"没有登录,不能进行评论..请登录"),
     SYS_ERROR(2004,"服务小哥去追寻诗和远方了...请稍后在试"),
     TYPE_PARAM_WORNG(2005,"评论类型错误或不存在"),
-    COMMENT_NOT_FOUND(2006,"回复的评论不存在,要不换个试试?")
+    COMMENT_NOT_FOUND(2006,"回复的评论不存在,要不换个试试?"),
+    COMMENT_IS_FOUND(2007,"回复的评论不能为空!")
     ;
 
     private String message;

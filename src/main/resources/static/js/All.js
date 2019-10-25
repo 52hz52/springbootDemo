@@ -4,7 +4,9 @@ $(function () {
         var id = $("#question_id").val();
         var content = $("#comment_content").val();
         console.log("question_id = " + id + "    content = " + content);
-
+        if(!content){
+            return alert(" 亲 回复不能为空哦~~~");
+        }
         $.ajax({
             type: "POST",
             url: "/comment",
@@ -17,6 +19,7 @@ $(function () {
             success: function (response) {
                 console.log(response.code);
                 if(response.code == 200){
+                    window.location.reload();
                     $(".QuestionComment").hide();
                 }else{
                     if(response.code == 2003){

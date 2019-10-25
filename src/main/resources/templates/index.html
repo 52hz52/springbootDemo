@@ -19,7 +19,7 @@
 
 <body>
 <div th:insert="navgation :: nav"></div>
-<div class="container main ">
+<div class="container main index">
     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
         <h2 class="h2" ><span class="glyphicon glyphicon-list" ></span> 发现</h2>
         <hr/>
@@ -31,10 +31,10 @@
                 </a>
             </div>
             <div class="media-body">
-                <h4 class="media-heading">
-                    <a th:href="@{'/question/'+${question.id}} " th:text="${question.title}" ></a>
+                <h4 class="h4 media-heading">
+                    <a class="questionTit" th:href="@{'/question/'+${question.id}} " th:text="${question.title}" ></a>
                 </h4>
-                <span th:text="${question.desciption}"></span><br/>
+                <div th:text="${question.desciption}" class="questionContent"></div>
                 <span class="desc-test">
                     <span th:text="${question.commentCount}"></span>个回复 •
                     <span th:text="${question.viewCount}"></span>次浏览 •
@@ -51,7 +51,7 @@
         <!--<div th:if="${pagination.page==pagination.getTotalPage()}" class="lastPageQuestion">这是最后一页的问题了...</div>-->
 
         <!--分页-->
-        <nav aria-label="Page navigation" class="pull-right" th:if="${pagination.getTotalCount()>=5}">
+        <nav aria-label="Page navigation" class="pull-right" th:if="${pagination.getTotalCount()>5}">
             <ul class="pagination">
                 <li th:if="${pagination.showFirstPage}">
                     <a href="/?page=1" aria-label="Previous">

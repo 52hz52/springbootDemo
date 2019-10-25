@@ -1,16 +1,24 @@
 package com.life.hz.service;
 
+import com.life.hz.dto.CommentDTO;
 import com.life.hz.enums.CommentTypeEnum;
 import com.life.hz.exception.CustomizeException;
 import com.life.hz.exception.CustomizeExceptionCode;
 import com.life.hz.mapper.CommentMapper;
 import com.life.hz.mapper.QuestionExtMapper;
 import com.life.hz.mapper.QuestionMapper;
-import com.life.hz.model.Comment;
-import com.life.hz.model.Question;
+import com.life.hz.mapper.UserMapper;
+import com.life.hz.model.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentService {
@@ -23,6 +31,9 @@ public class CommentService {
 
     @Autowired
     private QuestionExtMapper questionExtMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
 //  事务  错了就不执行这个方法..
     @Transactional
@@ -51,5 +62,37 @@ public class CommentService {
             question.setCommentCount(1);
             questionExtMapper.incCommentCount(question);
         }
+    }
+
+    public List<CommentDTO> ListByQuestionId(Long id) {
+        CommentExample commentExample = new CommentExample();
+        commentExample.createCriteria().andParentIdEqualTo(id).andTypeEqualTo(CommentTypeEnum.QUESTION.getType());
+//      setOrderByClause 传递2个值 第二个值为排序顺序 （ASC,DESC）  空格 隔开
+        commentExample.setOrderByClause("gmt_modified desc");
+        List<Comment> commentList = commentMapper.selectByExample(commentExample);
+
+        if(commentList.size() == 0 ){
+            return new ArrayList<>();
+        }
+//      获取去掉重复的评论人
+        Set<Long> commentCtator = commentList.stream().map(comment -> comment.getCommentator()).collect(Collectors.toSet());
+        List<Long> userIds = new ArrayList<>();
+        userIds.addAll(commentCtator);
+
+//      获取评论人 并转换未 Map
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andIdIn(userIds);
+        List<User> users = userMapper.selectByExample(userExample);
+        Map<Long, User> userMap = users.stream().collect(Collectors.toMap(user -> user.getId(), user -> user));
+
+//      转换 comment 为 commentDTO
+        List<CommentDTO> commentDTOS = commentList.stream().map(comment -> {
+            CommentDTO commentDTO = new CommentDTO();
+            BeanUtils.copyProperties(comment,commentDTO);
+            commentDTO.setUser(userMap.get(comment.getCommentator()));
+            return commentDTO;
+        }).collect(Collectors.toList());
+
+        return commentDTOS;
     }
 }

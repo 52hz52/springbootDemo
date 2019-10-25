@@ -47,6 +47,19 @@ hr{
 
 
 /*  index.html  */
+.index .questionTit{
+    display: inline-block;
+    width: 500px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.index .media{
+    margin: 25px 0;
+}
+.questionContent{
+    margin: 9px 0 5px 0;
+}
 .desc-test{
     font-size: 12px;
     font-weight: normal;
@@ -68,6 +81,32 @@ hr{
 
 
 /*question.html   */
+.commentContent{
+    margin: 9px 0 7px 0;
+    font-size: 14px;
+    color: black;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+}
+.spanMenu .icon{
+    color: #999;
+    cursor: pointer;
+}
+.spanMenu:last-child{
+    color: #999;
+}
+.spanMenu .icon:hover{
+    color: #408ad6;
+}
+
+.AllComment{
+    padding: 30px 0;
+}
+.AllComment .media{
+    margin-left: 20px;
+}
+
 .EditICONColor{
     color: #999;
 }
