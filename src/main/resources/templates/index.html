@@ -9,10 +9,10 @@
 </head>
 
 <script type="application/javascript">
-
     var closable = window.localStorage.getItem("closable");
     if(closable == "true"){
         window.close();
+        window.location.reload();
         window.localStorage.removeItem("closable");
     }
 </script>

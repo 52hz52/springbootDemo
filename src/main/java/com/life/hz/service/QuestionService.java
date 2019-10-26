@@ -10,13 +10,16 @@ import com.life.hz.mapper.UserMapper;
 import com.life.hz.model.Question;
 import com.life.hz.model.QuestionExample;
 import com.life.hz.model.User;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
@@ -55,7 +58,9 @@ public class QuestionService {
         Integer offset = size*(page-1);
 
 //      发布的问题集合  分页  limit
-        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(new QuestionExample(), new RowBounds(offset, size));
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.setOrderByClause("gmt_create desc");
+        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(questionExample, new RowBounds(offset, size));
 
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
@@ -189,4 +194,22 @@ public class QuestionService {
     }
 
 
+    public List<QuestionDTO> selectRelated(QuestionDTO dto) {
+        if(StringUtils.isBlank(dto.getTag())){
+            return new ArrayList<>();
+        }
+        String[] tags = StringUtils.split(dto.getTag(), ",");
+        String regexpTag = Arrays.stream(tags).collect(Collectors.joining("|"));
+        Question question = new Question();
+        question.setId(dto.getId());
+        question.setTag(regexpTag);
+
+        List<Question> questionList = questionExtMapper.selectRelated(question);
+        List<QuestionDTO> questionDTOS = questionList.stream().map(q -> {
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(q,questionDTO);
+            return questionDTO;
+        }).collect(Collectors.toList());
+        return questionDTOS;
+    }
 }

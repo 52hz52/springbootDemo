@@ -8,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 import java.util.List;
 
 public interface QuestionExtMapper {
-    int incView(Question record);
-    int incCommentCount(Question record);
+    int incView(Question question);
+    int incCommentCount(Question question);
+    List<Question> selectRelated(Question question);
 }

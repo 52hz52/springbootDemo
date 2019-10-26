@@ -1,6 +1,7 @@
 body{
     background: url("../img/bg.png") 100% 100%;
 }
+a{text-decoration: none;}
 a:hover{
     text-decoration: none;
 }

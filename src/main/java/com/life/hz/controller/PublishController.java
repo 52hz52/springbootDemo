@@ -72,7 +72,9 @@ public class PublishController {
         }
         Question question = new Question();
         question.setTitle(title);
-        question.setTag(tag);
+        //转换小写去空格
+        String tagLower =  tag.toLowerCase().replaceAll(" ","");
+        question.setTag(tagLower);
         question.setDesciption(desciption);
         question.setCreator(user.getId());
         question.setViewCount(0);
