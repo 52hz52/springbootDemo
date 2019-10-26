@@ -1,8 +1,8 @@
 package com.life.hz.controller;
 
-import com.life.hz.dto.CommentCreateDTO;
 import com.life.hz.dto.CommentDTO;
 import com.life.hz.dto.QuestionDTO;
+import com.life.hz.enums.CommentTypeEnum;
 import com.life.hz.service.CommentService;
 import com.life.hz.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class QuestionController {
     @GetMapping("/question/{id}")
     public String question(@PathVariable(name="id")Long id, Model model){
         QuestionDTO questionDTO = questionService.getById(id);
-        List<CommentDTO> comments =  commentService.ListByQuestionId(id);
+        List<CommentDTO> comments =  commentService.ListByTargetId(id, CommentTypeEnum.QUESTION);
 
 //      累加阅读数
         questionService.incView(id);

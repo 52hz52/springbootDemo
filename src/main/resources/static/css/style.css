@@ -81,6 +81,9 @@ hr{
 
 
 /*question.html   */
+.erJCommentButton{
+    margin: 30px 0 20px 0;
+}
 .commentContent{
     margin: 9px 0 7px 0;
     font-size: 14px;
@@ -89,21 +92,37 @@ hr{
     word-break: break-all;
     overflow: hidden;
 }
-.spanMenu .icon{
+.icon{
+    display: inline-block;
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
     color: #999;
     cursor: pointer;
 }
-.spanMenu:last-child{
+.spanMenu span:last-child{
     color: #999;
 }
 .spanMenu .icon:hover{
-    color: #408ad6;
+    border-radius: 3px ;
+    background-color: #5bc0de;
+    color: #fff;
+}
+
+.spanMenIconM{
+    border-radius: 3px ;
+    background-color: #5bc0de;
+    color: #fff;
+}
+.iconM{
+    color: #fff;
 }
 
 .AllComment{
     padding: 30px 0;
 }
-.AllComment .media{
+.AllComment .commedia{
     margin-left: 20px;
 }
 

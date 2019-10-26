@@ -1,7 +1,9 @@
 package com.life.hz.controller;
 
 import com.life.hz.dto.CommentCreateDTO;
+import com.life.hz.dto.CommentDTO;
 import com.life.hz.dto.ResultDTO;
+import com.life.hz.enums.CommentTypeEnum;
 import com.life.hz.exception.CustomizeExceptionCode;
 import com.life.hz.model.Comment;
 import com.life.hz.model.User;
@@ -9,16 +11,14 @@ import com.life.hz.service.CommentService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class CommentController {
-
 
     @Autowired
     private CommentService commentService;
@@ -44,8 +44,25 @@ public class CommentController {
         comment.setGmtModified(comment.getGmtCreate());
         comment.setCommentator(user.getId());
         comment.setLikeCount(0L); // long 类型 要加 L
+        comment.setCommentCount(0);
+
         commentService.insert(comment);
         return ResultDTO.okOf();
     }
+
+
+    @ResponseBody // 将对象序列化成json
+    @RequestMapping(value = "/comment/{id}",method = RequestMethod.GET)
+    public ResultDTO<List<CommentDTO>> comments(@PathVariable(name = "id")Long id, Model model){
+
+        List<CommentDTO> commentDTOList = commentService.ListByTargetId(id, CommentTypeEnum.COMMENT);
+
+        ResultDTO resultDTO = ResultDTO.okOf(commentDTOList);
+
+
+
+        return ResultDTO.okOf(commentDTOList);
+    }
+
 
 }

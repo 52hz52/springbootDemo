@@ -4,10 +4,7 @@ import com.life.hz.dto.CommentDTO;
 import com.life.hz.enums.CommentTypeEnum;
 import com.life.hz.exception.CustomizeException;
 import com.life.hz.exception.CustomizeExceptionCode;
-import com.life.hz.mapper.CommentMapper;
-import com.life.hz.mapper.QuestionExtMapper;
-import com.life.hz.mapper.QuestionMapper;
-import com.life.hz.mapper.UserMapper;
+import com.life.hz.mapper.*;
 import com.life.hz.model.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,10 @@ public class CommentService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private CommentExtMapper commentExtMapper;
+
+
 //  事务  错了就不执行这个方法..
     @Transactional
     public void insert(Comment comment){
@@ -52,6 +53,11 @@ public class CommentService {
                 throw new CustomizeException(CustomizeExceptionCode.COMMENT_NOT_FOUND);
             }
             commentMapper.insert(comment);
+            //增加评论数
+            Comment parentComment = new Comment();
+            parentComment.setId(comment.getParentId());
+            parentComment.setCommentCount(1);
+            commentExtMapper.incCommentCount(parentComment);
         }else {
             //回复问题
             Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
@@ -64,9 +70,9 @@ public class CommentService {
         }
     }
 
-    public List<CommentDTO> ListByQuestionId(Long id) {
+    public List<CommentDTO> ListByTargetId(Long id, CommentTypeEnum type) {
         CommentExample commentExample = new CommentExample();
-        commentExample.createCriteria().andParentIdEqualTo(id).andTypeEqualTo(CommentTypeEnum.QUESTION.getType());
+        commentExample.createCriteria().andParentIdEqualTo(id).andTypeEqualTo(type.getType());
 //      setOrderByClause 传递2个值 第二个值为排序顺序 （ASC,DESC）  空格 隔开
         commentExample.setOrderByClause("gmt_modified desc");
         List<Comment> commentList = commentMapper.selectByExample(commentExample);
