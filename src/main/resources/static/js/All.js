@@ -1,4 +1,41 @@
 
+$(function () {
+
+    //输入标签
+    $("#input-tag").click(function () {
+        var dis = $(".selectTags").css("display");
+        if(dis == "block"){
+            $(".selectTags").hide();
+        }else {
+            //默认标签第一个
+            $("#language").addClass("active");
+
+            $(".selectTags").show();
+        }
+    });
+
+
+    if($(".input-error").val()!=null){
+        alert($(".input-error").val());
+    }
+
+
+});
+
+function selectTag(e) {
+    var value = $(e).attr("data-tag")
+    var tag = $("#input-tag").val();
+    if(tag.indexOf(value) == -1){
+        if(tag){
+            $("#input-tag").val(tag+','+value);
+        }else {
+            $("#input-tag").val(value);
+        }
+    }
+}
+
+
+
 // 回复的方法
 function message(targetId,type,content,request) {
 
@@ -51,7 +88,6 @@ function messageComment(e) {
     message(commentId,2,content,"post");
 
 }
-
 
 // 二级回复
 function commentIcon(e){
@@ -110,3 +146,4 @@ function commentIcon(e){
         $(e).removeClass("spanMenIconM iconM");
     }
 }
+

@@ -114,7 +114,8 @@ public class QuestionService {
 //      发布的问题集合  分页  limit
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria().andCreatorEqualTo(userID);
-
+//      按照gmt_modified(更新时间 排序)
+        questionExample.setOrderByClause("gmt_modified desc");
         List<Question> questions = questionMapper.
                 selectByExampleWithRowbounds(questionExample, new RowBounds(offset, size));
 

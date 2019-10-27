@@ -30,7 +30,7 @@
             <!--标签-->
             <hr/>
             <div>
-                <span  th:each=" tag : ${question.tag.split(',')}">
+                <span th:each=" tag : ${question.tag.split(',')}">
                     <span class="label label-success">
                         <span class="glyphicon glyphicon-tag"><span style="padding-left: 3px;" th:text="${tag}"></span></span>
                     </span>&nbsp;&nbsp;
@@ -65,8 +65,10 @@
                     <div class="commentContent" th:text="${comment.content}"></div>
                     <div class="spanMenu">
                         <span class="glyphicon glyphicon-heart-empty icon"></span>
-                        <span class="glyphicon glyphicon-comment icon " th:data-id="${comment.id}" data-toggle="collapse"
-                              th:data-target="'#'+${'comment-'+comment.id}" aria-expanded="false" onclick="commentIcon(this)"
+                        <span class="glyphicon glyphicon-comment icon " th:data-id="${comment.id}"
+                              data-toggle="collapse"
+                              th:data-target="'#'+${'comment-'+comment.id}" aria-expanded="false"
+                              onclick="commentIcon(this)"
                               th:text="${' '+comment.commentCount}">
                         </span>
                         <span class="pull-right" th:text="${#dates.format(comment.gmtModified,'MM-dd HH:mm ')}"></span>
@@ -77,27 +79,30 @@
                     <!--二级回复-->
                     <div class="collapse" th:id="${'comment-'+comment.id}">
 
-                      <!--  <div class="media" th:each="comment:${comments}" style="padding: 15px 5px 5px 5px;">
-                            <div class="media-left">
-                                <a href="#">
-                                    <img class="media-object img-rounded" width="45px" height="45px"
-                                         th:src="${comment.user.avatarUrl}" alt="...">
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <h5 class="h5 media-heading">
-                                    <span class="desc-test" th:text="${comment.user.name}"></span>
-                                    <span style="font-size: 12px; color: #999" th:text="${#dates.format(comment.gmtModified,'MM-dd HH:mm ')}"></span>
-                                </h5>
-                                <div class="commentContent" th:text="${comment.content}"></div>
-                            </div>
-                        </div>-->
+                        <!--  <div class="media" th:each="comment:${comments}" style="padding: 15px 5px 5px 5px;">
+                              <div class="media-left">
+                                  <a href="#">
+                                      <img class="media-object img-rounded" width="45px" height="45px"
+                                           th:src="${comment.user.avatarUrl}" alt="...">
+                                  </a>
+                              </div>
+                              <div class="media-body">
+                                  <h5 class="h5 media-heading">
+                                      <span class="desc-test" th:text="${comment.user.name}"></span>
+                                      <span style="font-size: 12px; color: #999" th:text="${#dates.format(comment.gmtModified,'MM-dd HH:mm ')}"></span>
+                                  </h5>
+                                  <div class="commentContent" th:text="${comment.content}"></div>
+                              </div>
+                          </div>-->
 
 
                         <div>
-                            <input type="text" class="form-control erJCommentButton" placeholder="评论一下!" th:id="${'input-'+comment.id}">
+                            <input type="text" class="form-control erJCommentButton" placeholder="评论一下!"
+                                   th:id="${'input-'+comment.id}">
                             <div class="pull-right">
-                                <button type="button" class="btn btn-success" onclick="messageComment(this)" th:data-id="${comment.id}">评论</button>
+                                <button type="button" class="btn btn-success" onclick="messageComment(this)"
+                                        th:data-id="${comment.id}">评论
+                                </button>
                                 <button type="button" class="btn" style="background: none">取消</button>
                             </div>
                         </div>
@@ -120,7 +125,8 @@
                 &nbsp;&nbsp;<span th:text="${question.user.name}"></span>
             </span>
             <input type="hidden" id="question_id" th:value="${question.id}">
-            <textarea class="form-control textComment" rows="10" id="comment_content" placeholder="有问题,快来解答呀~"></textarea>
+            <textarea class="form-control textComment" rows="10" id="comment_content"
+                      placeholder="有问题,快来解答呀~"></textarea>
             <button type="button" class="btn btn-success pull-right questionSubmitBtn " onclick="messageQuestion()">回复
             </button>
         </div>
@@ -153,7 +159,8 @@
         <h4 class="h4">相关问题</h4>
         <hr/>
         <div>
-            <ul style="list-style: none;padding-left: 5px" th:type="${1}" th:each="relatedQuestion : ${relatedQuestions}">
+            <ul style="list-style: none;padding-left: 5px" th:type="${1}"
+                th:each="relatedQuestion : ${relatedQuestions}">
                 <li><a th:href="@{'/question/'+${relatedQuestion.id}} " th:text="${relatedQuestion.title}"></a></li>
             </ul>
         </div>

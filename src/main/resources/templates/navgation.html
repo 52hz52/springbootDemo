@@ -41,6 +41,9 @@
                             <li><a href="/publish">高级问题</a></li>
                         </ul>
                     </li>
+                    <li th:if="${session.user != null}">
+                        <a href="/profile/replies">通知 <span class="badge" style="background: #ef1b14;">42</span></a>
+                    </li>
 
                     <!--如果用户不为空 显示这个li-->
                     <li class="dropdown" th:if="${session.user != null}">

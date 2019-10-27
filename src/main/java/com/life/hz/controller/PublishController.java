@@ -1,9 +1,11 @@
 package com.life.hz.controller;
 
+import com.life.hz.cache.TagCache;
 import com.life.hz.dto.QuestionDTO;
 import com.life.hz.model.Question;
 import com.life.hz.model.User;
 import com.life.hz.service.QuestionService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,11 +33,14 @@ public class PublishController {
         model.addAttribute("desciption",questionDTO.getDesciption());
         model.addAttribute("tag",questionDTO.getTag());
         model.addAttribute("id",id);
+        model.addAttribute("tags",TagCache.get());
+
         return "publish";
     }
 
     @GetMapping("/publish")
-    public String publish(){
+    public String publish(Model model){
+        model.addAttribute("tags",TagCache.get());
         return "publish";
     }
 
@@ -51,6 +56,7 @@ public class PublishController {
         model.addAttribute("title",title);
         model.addAttribute("desciption",desciption);
         model.addAttribute("tag",tag);
+        model.addAttribute("tags",TagCache.get());
 
         if(null == title || "" == title){
             model.addAttribute("error","标题不能为空");
@@ -63,6 +69,11 @@ public class PublishController {
         if(null == tag || "" == tag){
             model.addAttribute("error","标签不能为空");
             return "publish";
+        }
+        String invalid = TagCache.filterInvalid(tag);
+        if(StringUtils.isNoneBlank(invalid)){
+            model.addAttribute("error","输入非法标签"+invalid);
+            return"publish";
         }
 
         User user = (User) request.getSession().getAttribute("user");

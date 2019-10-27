@@ -21,16 +21,24 @@
                 </a>
             </div>
             <div class="media-body">
-                <h4 class="media-heading" th:text="${question.title}"></h4>
+                <h4 class="media-heading">
+                    <a class="questionTit" th:href="@{'/question/'+${question.id}} " th:text="${question.title}" ></a>
+                </h4>
                 <span class="desc-test">
                     <span th:text="${question.commentCount}"></span>个回复 • <span th:text="${question.viewCount}"></span>次浏览 • <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm ')}"></span> 发布
+                    <!--编辑-->
+                    <a th:href="@{'/publish/'+${question.id}}" class="EditICONColor"
+                       th:if="${session.user != null && session.user.id==question.creator }">
+                        <hr/>
+                        <span class="glyphicon glyphicon-edit" style="font-size: 13px;"> </span> 编辑
+                    </a>
                 </span>
             </div>
         </div>
 
         <!--<div th:if="${pagination.page==pagination.getTotalPage()}" class="lastPageQuestion">这是最后一页的问题了...</div>-->
 
-        <nav aria-label="Page navigation" class="pull-right" th:if="${pagination.questions.size() > 5 }">
+        <nav aria-label="Page navigation" class="pull-right" th:if="${pagination.getTotalCount() > 5 }">
             <ul class="pagination">
                 <li th:if="${pagination.showFirstPage}">
                     <a th:href=" @{ '/profile/'+${section}(page=${1}) } " aria-label="Previous">

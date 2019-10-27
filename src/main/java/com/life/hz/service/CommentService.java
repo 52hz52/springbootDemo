@@ -2,6 +2,8 @@ package com.life.hz.service;
 
 import com.life.hz.dto.CommentDTO;
 import com.life.hz.enums.CommentTypeEnum;
+import com.life.hz.enums.NOtificationStatusEnum;
+import com.life.hz.enums.NOtificationTypeEnum;
 import com.life.hz.exception.CustomizeException;
 import com.life.hz.exception.CustomizeExceptionCode;
 import com.life.hz.mapper.*;
@@ -35,6 +37,9 @@ public class CommentService {
     @Autowired
     private CommentExtMapper commentExtMapper;
 
+    @Autowired
+    private NotificationMapper notificationMapper;
+
 
 //  事务  错了就不执行这个方法..
     @Transactional
@@ -58,6 +63,9 @@ public class CommentService {
             parentComment.setId(comment.getParentId());
             parentComment.setCommentCount(1);
             commentExtMapper.incCommentCount(parentComment);
+//          创建通知
+            createNotiy(comment, dbComment.getCommentator(), NOtificationTypeEnum.REPLY_COMMENT);
+
         }else {
             //回复问题
             Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
@@ -67,7 +75,24 @@ public class CommentService {
             commentMapper.insert(comment);
             question.setCommentCount(1);
             questionExtMapper.incCommentCount(question);
+            //          创建通知
+            createNotiy(comment, question.getCreator(), NOtificationTypeEnum.REPLY_QUESTION);
         }
+    }
+
+    private void createNotiy(Comment comment, Long commentator, NOtificationTypeEnum nOtificationTypeEnum) {
+        Notification notification = new Notification();
+        notification.setGmtCreate(System.currentTimeMillis());
+        notification.setType(nOtificationTypeEnum.getType());
+//          设置通知 的 评论问题
+        notification.setOuterid(comment.getParentId());
+//          xxx  回复了 什么什么问题
+//          通知人 xxx
+        notification.setNotifier(comment.getCommentator());
+        notification.setStatus(NOtificationStatusEnum.UNREAD.getStatus());
+//          接收人 登录的用户
+        notification.setReceive(commentator);
+        notificationMapper.insert(notification);
     }
 
     public List<CommentDTO> ListByTargetId(Long id, CommentTypeEnum type) {
