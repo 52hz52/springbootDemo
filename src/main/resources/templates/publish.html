@@ -3,8 +3,11 @@
 <head>
     <title>发布问题</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/css/editormd.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
+
+
 </head>
 
 <body>
@@ -71,10 +74,12 @@
                        placeholder="问题标题...">
             </div>
             <br/>
-            <div class="form-group">
+            <div class="form-group" >
                 <label>问题补充 (必填，请参照右侧提示):</label>
-                <textarea name="desciption" class="form-control" th:text="${desciption}" cols="30" rows="10"
-                          placeholder="问题补充"></textarea>
+                <div id="question-editor" style="z-index: 99">
+                     <textarea name="desciption" class="form-control" style="display:none;"
+                               th:text="${desciption}" ></textarea>
+                </div>
             </div>
             <div class="form-group">
                 <label>添加标签:</label>
@@ -120,7 +125,7 @@
     </div>
 
     <!-- 右边 -->
-    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="z-index: 10">
 
         <h2 class="h2"><span style="font-size: 16px">问题发起指南</span></h2>
         <hr/>
@@ -140,9 +145,25 @@
 <div th:insert="footer :: foot"></div>
 
 
+
 <script src="/js/jquery.min.js"></script>
+<script src="/js/editormd.min.js" type="application/javascript"></script>
 <script src="/js/All.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    $(function() {
+        var editor = editormd("question-editor", {
+             width  : "100%",
+             height : 400,
+             path   : "/js/lib/",
+             delay  : 0,
+             watch  : false,
+             placeholder:"问题补充"
+
+        });
+    });
+</script>
 
 </body>
 </html>

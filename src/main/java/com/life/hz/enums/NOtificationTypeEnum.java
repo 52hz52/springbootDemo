@@ -13,20 +13,23 @@ public enum NOtificationTypeEnum {
         return type;
     }
 
-    public void setType(int type) {
-        this.type = type;
-    }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     NOtificationTypeEnum(int type, String name) {
         this.type = type;
         this.name = name;
+    }
+
+    public static String nameOfType(int type){
+        for (NOtificationTypeEnum notificationTypeEnum : NOtificationTypeEnum.values()) {
+            if(notificationTypeEnum.getType() == type ){
+                return notificationTypeEnum.getName();
+            }
+        }
+        return "";
     }
 }

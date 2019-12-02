@@ -13,32 +13,48 @@
     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
         <h2 class="h2"><span th:text="${sectionName}"></span> </h2>
         <hr/>
-
-        <div class="media" th:each="question : ${pagination.questions} " th:if="${pagination.questions.size()>0}">
-            <div class="media-left">
-                <a href="#">
-                    <img class="media-object img-rounded" width="45px" height="45px" th:src="${question.user.avatarUrl}" alt="...">
-                </a>
-            </div>
-            <div class="media-body">
-                <h4 class="media-heading">
-                    <a class="questionTit" th:href="@{'/question/'+${question.id}} " th:text="${question.title}" ></a>
-                </h4>
-                <span class="desc-test">
+        <!-- 回复问题 -->
+        <div class="row" th:if="${section == 'questions'}" >
+            <div class="media" th:each="question : ${pagination.data} " th:if="${pagination.data.size()>0}">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object img-rounded" width="45px" height="45px" th:src="${question.user.avatarUrl}" alt="...">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <a class="questionTit" th:href="@{'/question/'+${question.id}} " th:text="${question.title}" ></a>
+                    </h4>
+                    <span class="desc-test">
                     <span th:text="${question.commentCount}"></span>个回复 • <span th:text="${question.viewCount}"></span>次浏览 • <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm ')}"></span> 发布
-                    <!--编辑-->
+                        <!--编辑-->
                     <a th:href="@{'/publish/'+${question.id}}" class="EditICONColor"
                        th:if="${session.user != null && session.user.id==question.creator }">
                         <hr/>
                         <span class="glyphicon glyphicon-edit" style="font-size: 13px;"> </span> 编辑
                     </a>
                 </span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 回复通知内容 -->
+        <div class="row"  th:if="${section == 'replies'}" >
+            <div th:each="notification : ${pagination.data}">
+                <a th:href="@{'/notification/'+${notification.id}}">
+                    <p style="padding: 5px 0px">
+                        <span th:text="${notification.notifierName}"></span>
+                        <span th:text="${notification.typeName}" style="color: black;"></span>
+                        <span th:text="${notification.outerTitle}"></span>
+                        <span th:if="${notification.status == 0 }" class="label label-danger">未读</span>
+                    </p>
+                </a>
+
             </div>
         </div>
 
-        <!--<div th:if="${pagination.page==pagination.getTotalPage()}" class="lastPageQuestion">这是最后一页的问题了...</div>-->
-
-        <nav aria-label="Page navigation" class="pull-right" th:if="${pagination.getTotalCount() > 5 }">
+        <nav aria-label="Page navigation" class="pull-right" th:if="${pagination.getTotalCount() > 10 }">
             <ul class="pagination">
                 <li th:if="${pagination.showFirstPage}">
                     <a th:href=" @{ '/profile/'+${section}(page=${1}) } " aria-label="Previous">
@@ -82,7 +98,7 @@
             <a href="/profile/questions"  th:class="${section == 'questions'}? 'active list-group-item':'list-group-item' " >我的问题</a>
             <a href="/profile/replies"  th:class="${section == 'replies'}? 'active list-group-item':'list-group-item' " >
                 最新回复
-                <span class="badge">14</span>
+                <span class="badge" th:text="${session.unreadCount}"></span>
             </a>
         </div>
 

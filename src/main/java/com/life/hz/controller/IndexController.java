@@ -18,10 +18,10 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model,
                         @RequestParam(name = "page" ,defaultValue = "1")Integer page) {
-        Integer size = 5 ;
+        Integer size = 10 ;
         PaginationDTO pagination = questionService.list(page,size);
         model.addAttribute("pagination",pagination);
-        if(pagination.getQuestions().size() > 0 ){
+        if(pagination.getData().size() > 0 ){
             return "index";
         }
         else {

@@ -59,7 +59,12 @@ hr{
     margin: 25px 0;
 }
 .questionContent{
-    margin: 9px 0 5px 0;
+    margin: 0px 0 5px 0;
+    display: inline-block;
+    width: 700px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .desc-test{
     font-size: 12px;
@@ -145,7 +150,7 @@ hr{
 
 }
 .questionDesc{
-    margin:25px 0 25px 0;
+    margin:5px 0 25px 0;
 }
 .bio{
     font-size: 12px;

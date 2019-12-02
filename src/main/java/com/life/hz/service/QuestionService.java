@@ -77,7 +77,7 @@ public class QuestionService {
          questionDTOList.add(questionDto);
         }
 //      所有问题 用于分页
-        paginationDTO.setQuestions(questionDTOList);
+        paginationDTO.setData(questionDTOList);
 
 
         return paginationDTO;
@@ -134,7 +134,7 @@ public class QuestionService {
             questionDTOList.add(questionDto);
         }
 //      所有问题 用于分页
-        paginationDTO.setQuestions(questionDTOList);
+        paginationDTO.setData(questionDTOList);
 
 
         return paginationDTO;

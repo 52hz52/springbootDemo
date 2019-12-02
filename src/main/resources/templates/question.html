@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title th:text="${question.title}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/css/editormd.preview.min.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -23,8 +24,8 @@
 
             <!--内容-->
             <hr/>
-            <div class="questionDesc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <span th:text="${question.desciption}"></span>
+            <div class="questionDesc" id="question-view">&nbsp;
+                <textarea style="display:none;" th:text="${question.desciption}"></textarea>
             </div>
 
             <!--标签-->
@@ -174,9 +175,18 @@
 
 
 <script src="/js/jquery.min.js"></script>
+<script src="/js/editormd.min.js" type="application/javascript"></script>
 <script src="/js/moment.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/All.js"></script>
+<script src="/js/lib/marked.min.js"></script>
+<script src="/js/lib/prettify.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        var testView = editormd.markdownToHTML("question-view", {
+          });
+    });
+</script>
 
 </body>
 </html>

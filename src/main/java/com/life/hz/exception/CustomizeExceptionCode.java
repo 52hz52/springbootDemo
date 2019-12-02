@@ -9,7 +9,9 @@ public enum CustomizeExceptionCode implements ICustomizeExceptionCode {
     SYS_ERROR(2004,"服务小哥去追寻诗和远方了...请稍后在试"),
     TYPE_PARAM_WORNG(2005,"评论类型错误或不存在"),
     COMMENT_NOT_FOUND(2006,"回复的评论不存在,要不换个试试?"),
-    COMMENT_IS_FOUND(2007,"回复的评论不能为空!")
+    COMMENT_IS_FOUND(2007,"回复的评论不能为空!"),
+    READ_NOTIFICATION_FAIL(2008,"兄弟你这是读别人的信息呐!"),
+    NOTIFICATION_NOT_FIND(2009,"消息莫不是不翼而飞了?"),
     ;
 
     private String message;

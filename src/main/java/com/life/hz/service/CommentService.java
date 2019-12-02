@@ -43,7 +43,7 @@ public class CommentService {
 
 //  事务  错了就不执行这个方法..
     @Transactional
-    public void insert(Comment comment){
+    public void insert(Comment comment, User commentator){
 
         if(comment.getParentId() == null || comment.getParentId() == 0){
             throw new CustomizeException(CustomizeExceptionCode.TARGET_PARAM_NOT_FOUND);
@@ -57,6 +57,13 @@ public class CommentService {
             if(dbComment == null ){
                 throw new CustomizeException(CustomizeExceptionCode.COMMENT_NOT_FOUND);
             }
+
+            //回复问题
+            Question question = questionMapper.selectByPrimaryKey(dbComment.getParentId());
+            if(question == null ){
+                throw new CustomizeException(CustomizeExceptionCode.QUESTION_NOT_FOUND);
+            }
+
             commentMapper.insert(comment);
             //增加评论数
             Comment parentComment = new Comment();
@@ -64,7 +71,7 @@ public class CommentService {
             parentComment.setCommentCount(1);
             commentExtMapper.incCommentCount(parentComment);
 //          创建通知
-            createNotiy(comment, dbComment.getCommentator(), NOtificationTypeEnum.REPLY_COMMENT);
+            createNotiy(comment, dbComment.getCommentator(), commentator.getName(), question.getTitle(), NOtificationTypeEnum.REPLY_COMMENT,question.getId());
 
         }else {
             //回复问题
@@ -75,23 +82,25 @@ public class CommentService {
             commentMapper.insert(comment);
             question.setCommentCount(1);
             questionExtMapper.incCommentCount(question);
-            //          创建通知
-            createNotiy(comment, question.getCreator(), NOtificationTypeEnum.REPLY_QUESTION);
+            //创建通知
+            createNotiy(comment, question.getCreator(), commentator.getName(),question.getTitle(),NOtificationTypeEnum.REPLY_QUESTION,question.getId());
         }
     }
 
-    private void createNotiy(Comment comment, Long commentator, NOtificationTypeEnum nOtificationTypeEnum) {
+    private void createNotiy(Comment comment, Long commentator, String notifierName, String outerTitle, NOtificationTypeEnum nOtificationTypeEnum,Long outerId) {
         Notification notification = new Notification();
         notification.setGmtCreate(System.currentTimeMillis());
         notification.setType(nOtificationTypeEnum.getType());
 //          设置通知 的 评论问题
-        notification.setOuterid(comment.getParentId());
+        notification.setOuterid(outerId);
 //          xxx  回复了 什么什么问题
 //          通知人 xxx
         notification.setNotifier(comment.getCommentator());
         notification.setStatus(NOtificationStatusEnum.UNREAD.getStatus());
 //          接收人 登录的用户
         notification.setReceive(commentator);
+        notification.setNotifierName(notifierName);
+        notification.setOuterTitle(outerTitle);
         notificationMapper.insert(notification);
     }
 
